@@ -1,0 +1,40 @@
+{% extends 'blogapp/base.html' %}
+{% load static %}
+{% block content %}
+        <div class="maincontent  col-12 col-sm-9 px-0">
+          <p style ="font-size:40px;">【記事一覧】</p>
+          <div class="testspace mt-4">
+
+          <div class="sameTag">
+              {% for entry in allList%}
+                <ul class= "list-unstyled">
+                  <li><a href="{% url 'blogapp:entries' aN=entry.articleNumber %}">
+                  <img src="{% static entry.image.url %}" alt="サムネ画像" style="width:8%;">{{ entry.title}}<br>{{ entry.published_date }}
+                  </a>
+                  </li>
+                </ul>
+                <br>
+              {% endfor %}
+
+          </div>
+
+            <br>
+          </div>
+          <div class="sns">
+
+            <ul class="clearfix list-unstyled">
+
+            <li class="twitter">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="テスト用" data-url="http://startblog.starfree.jp/blogscheme.html" data-lang="ja" data-show-count="false">Tweet</a>
+            </li>
+
+            <li class="facebook">
+            <div class="fb-share-button" data-href="http://startblog.starfree.jp/blogscheme.html" data-layout="button" data-size="large">
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstartblog.starfree.jp%2Fblogscheme.html&amp;src=sdkpreparse"
+              class="fb-xfbml-parse-ignore">シェア</a>
+            </div>
+            </li>
+            </ul>
+          </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'blogapp/base.html' %}
+{% load static %}
+{% block content %}
+        <div class="col-12 px-0">
+          <nav>
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="{% url 'blogapp:home' %}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'blogapp:index' %}">Blog制作日誌</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'blogapp:indexGenre' genre=Article.genre %}">{{Article.genre}}</a></li>
+            </ol>
+          </nav>
+        </div>
+        <div class="maincontent  col-12 col-sm-9 px-0">
+		  <div class="col-xs-12 cover-img" style="background-image:url('{% static Article.image.url %}');height:300px;">
+			  <div class="cover-text text-center">
+				<p style="color: #fff;">{{ Article.title }}</p>
+			  </div>
+		  </div>
+
+          <div class = "articleInfo mt-5">
+            <p>
+              投稿日時：{{ Article.published_date }}<br>
+              タグ：{{ Article.genre }}
+
+            </p>
+          </div>
+          <div class="testspace mt-4">
+            <h1>{{ Article.title }}</h1>
+            <h2 id="block1">{{ Article.h1|default_if_none:""  }}</h2>
+            <p>{{ Article.text1|default_if_none:""|linebreaksbr }}</p>
+            <h2 id="block2">{{ Article.h2|default_if_none:""  }}</h2>
+            <p>{{ Article.text2|default_if_none:""|linebreaksbr  }}</p>
+            <h2 id="block3">{{ Article.h3|default_if_none:""  }}</h2>
+            <p>{{ Article.text3|default_if_none:""|linebreaksbr  }}</p>
+            <h2 id="block4">{{ Article.h4|default_if_none:""  }}</h2>
+            <p>{{ Article.text4|default_if_none:""|linebreaksbr  }}</p>
+            <h2 id="block5">{{ Article.h5|default_if_none:""  }}</h2>
+            <p>{{ Article.text5|default_if_none:""|linebreaksbr  }}</p>
+
+
+
+
+            <iframe id = "block4" src="https://docs.google.com/forms/d/e/1FAIpQLSfmb88QIWfQEuzfghCvNcikXV0Ama4a1ywi_5wfdc6170XSCA/viewform?embedded=true" width="640" height="468" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>
+          <div class="sns">
+
+            <ul class="clearfix list-unstyled">
+
+            <li class="twitter">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="テスト用" data-url="http://startblog.starfree.jp/blogscheme.html" data-lang="ja" data-show-count="false">Tweet</a>
+            </li>
+
+            <li class="facebook">
+            <div class="fb-share-button" data-href="http://startblog.starfree.jp/blogscheme.html" data-layout="button" data-size="large">
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstartblog.starfree.jp%2Fblogscheme.html&amp;src=sdkpreparse"
+              class="fb-xfbml-parse-ignore">シェア</a>
+            </div>
+            </li>
+            </ul>
+          </div>
+          <div class="sameTag">
+            <p>同一ジャンルの記事</p>
+            <div class="card-group">
+              {% for SameGenre in SameGenreSet|slice:":5" %}
+                <div class="card" style="width:80%; background-color:transparent;border:1px solid black;">
+                  <a href="{% url 'blogapp:entries' aN=SameGenre.articleNumber %}">
+                  <img src="{% static SameGenre.image.url %}" alt="サムネ画像" class="card-img" style = "opacity:0.4";>
+                  <div class="card-img-overlay">
+                    <h5>{{ SameGenre.title}}</h5>
+                  </div>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+{% endblock %}
